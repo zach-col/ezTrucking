@@ -1,0 +1,193 @@
+<template name="deliveries">
+	<div class="container">
+		<div class="well">
+			<br>
+			<div class="row">
+				<div class="col-md-4 col-sm-12 text-center">
+					<p style="display: inline-block; font-size: 20px; margin-top: 1rem">{{signupEmail}}</p>
+				</div>
+				<div class="col-md-4 col-sm-12 text-center">
+					<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Truck #{{currentUser.truckNumber}}</p>
+				</div>
+				<div class="col-md-4 col-sm-12 text-center">
+					{{#if currentUser.isOnline}}
+						<div class="col-md-4 col-sm-4 text-center">
+							<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Online <i class="fas fa-circle" style="font-size: 20px; color:green"></i></p>
+						</div>
+					{{else}}
+						<div class="col-md-4 col-sm-4 text-center">
+							<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Offline <i class="fas fa-circle" style="font-size: 20px; color:red"></i></p>
+						</div>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		<hr>
+        {{#if hasRole}}
+			{{#if currentUser.isOnline}}
+				{{#if currentDelivery}}
+					{{#if deliveryAccepted}}
+						<h1>Current delivery</h1>
+						<div class="well" style="border: 1px solid black">
+							<div class="row">
+								<div class="col-sm-12 text-center">
+									<p style="font-size: 20px; margin-top: 1rem;">Pickup location: {{deliveryAccepted.pickup}}</p>
+
+									<a href="{{googleMapsPickup}}" target="_blank"><span style="text-align: center; font-size: 20px;">Google Maps</span></a>
+									<br>
+									<br>
+									<button type="button" class="btn btn-success pickUp" style="">Pick up <i class="fas fa-times"></i></button>
+									<br>
+									<br>
+								</div>
+							</div>
+						</div>
+					{{else}}
+						{{#if deliveryPickedUp }}
+
+							<div class="well" style="border: 1px solid black">
+								<div class="row">
+									<div class="col-sm-12 text-center">
+										<p style="font-size: 20px; margin-top: 1rem;">Dropoff location: {{deliveryPickedUp.dropoff}}</p>
+										<a href="{{googleMapsDropoff}}" target="_blank"><span style="text-align: center; font-size: 20px;">Google Maps</span></a>
+										<br>
+										<br>
+										<button type="button" class="btn btn-success dropOff" style="">Drop off <i class="fas fa-times"></i></button>
+										<br>
+										<br>
+									</div>
+								</div>
+							</div>
+						{{else}}
+							{{#if deliveryDroppedOff }}
+								<div class="well" style="border: 1px solid black">
+										<div class="text-center">
+											<p style="font-size: 20px; margin-top: 1rem">Picked up at: {{deliveryDroppedOff.pickedUpAt}}</p>
+										</div>
+										<div class="text-center">
+											<p style="font-size: 20px; margin-top: 1rem">Dropped off at: {{deliveryDroppedOff.droppedOffAt}}</p>
+										</div>
+								</div>
+								<br>
+								<div class="text-center">
+									<button type="button" class="btn btn-success uploadData" style="">Turn in truck sheet <i class="fas fa-check"></i></button>
+								</div>
+								<br>
+							{{else}}
+								<h1>There are no deliverys at the moment</h1>
+							{{/if}}
+						{{/if}}
+					{{/if}}
+
+				{{else}}
+					{{#if pickupsInQue}}
+						<div class="well" style="border: 1px solid black">
+							<div class="row">
+								<div class="col-sm-6 text-center">
+									<p style="display: inline-block; font-size: 20px; margin-top: 1rem">New delivery</p>
+								</div>
+								<div class="col-sm-6 text-center">
+									<p style="display: inline-block; font-size: 20px; margin-top: 1rem">
+										<div class="text-center">
+											<button type="button" class="btn btn-success acceptDelivery" style="">Accept <i class="fas fa-check"></i></button>
+										</div>
+									</p>
+								</div>
+							</div>
+						</div>
+					{{else}}
+						<h1>There are no deliverys at the moment</h1>
+					{{/if}}
+				{{/if}}
+			{{else}}
+				<h1>Please go online to view delivery's <a href="/profile">Profile</a></h1>
+
+			{{/if}}
+		{{else}}
+			<h1>You are unverified please ask an admin to verify you before accepting deliverys.</h1>
+        {{/if}}
+<!--         {{#if hasRole}}
+
+		{{#if currentUser.isOnline}}
+			{{#if currentDelivery}}
+			hi
+			{{/if}}
+			{{# if pickupsInQue}}
+			<div class="well" style="border: 1px solid black">
+				<div class="row">
+					<div class="col-sm-6 text-center">
+						<p style="display: inline-block; font-size: 20px; margin-top: 1rem">New delivery</p>
+					</div>
+					<div class="col-sm-6 text-center">
+						<p style="display: inline-block; font-size: 20px; margin-top: 1rem">
+							<div class="text-center">
+								<button type="button" class="btn btn-success acceptDelivery" style="">Accept <i class="fas fa-check"></i></button>
+							</div>
+						</p>
+					</div>
+				</div>
+			</div>
+			{{else}}
+				{{#if deliveryAccepted}}
+					<h1>Current delivery</h1>
+					<div class="well" style="border: 1px solid black">
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<p style="font-size: 20px; margin-top: 1rem;">Pickup location: {{deliveryAccepted.pickup}}</p>
+
+								<a href="{{googleMapsPickup}}" target="_blank"><span style="text-align: center; font-size: 20px;">Google Maps</span></a>
+								<br>
+								<br>
+								<button type="button" class="btn btn-success pickUp" style="">Pick up <i class="fas fa-times"></i></button>
+								<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				{{else}}
+					{{#if deliveryPickedUp }}
+
+						<div class="well" style="border: 1px solid black">
+							<div class="row">
+								<div class="col-sm-12 text-center">
+									<p style="font-size: 20px; margin-top: 1rem;">Dropoff location: {{deliveryPickedUp.dropoff}}</p>
+									<a href="{{googleMapsDropoff}}" target="_blank"><span style="text-align: center; font-size: 20px;">Google Maps</span></a>
+									<br>
+									<br>
+									<button type="button" class="btn btn-success dropOff" style="">Drop off <i class="fas fa-times"></i></button>
+									<br>
+									<br>
+								</div>
+							</div>
+						</div>
+					{{else}}
+						{{#if deliveryDroppedOff }}
+							<div class="well" style="border: 1px solid black">
+									<div class="text-center">
+										<p style="font-size: 20px; margin-top: 1rem">Picked up at: {{deliveryDroppedOff.pickedUpAt}}</p>
+									</div>
+									<div class="text-center">
+										<p style="font-size: 20px; margin-top: 1rem">Dropped off at: {{deliveryDroppedOff.droppedOffAt}}</p>
+									</div>
+							</div>
+							<br>
+							<div class="text-center">
+								<button type="button" class="btn btn-success uploadData" style="">Turn in truck sheet <i class="fas fa-check"></i></button>
+							</div>
+							<br>
+						{{else}}
+							<h1>There are no deliverys at the moment</h1>
+						{{/if}}
+					{{/if}}
+				{{/if}}
+			{{/if}}
+			{{else}}
+				<h1>Please go online to view delivery's <a href="/profile">Profile</a></h1>
+			{{/if}}
+		<br>
+
+		{{else}}
+			<h1>You are unverified please ask an admin to verify you before accepting deliverys.</h1>
+        {{/if}} -->
+	</div>
+</template>

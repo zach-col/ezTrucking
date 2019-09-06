@@ -1,0 +1,57 @@
+body {
+  font-family: sans-serif;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font: sans-serif;
+}
+
+.headerImage{
+  height: 100vh;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  left: 0;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.centeredText {
+  background-color: rgba(0,0,0, 0.9);
+  color: white;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+.headerContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centerDelivery {
+  font-size: 23px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.centerDeliverySub {
+  font-size: 19px;
+  margin-top: 1rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.homeText{
+  font-size: 25px;
+  text-align: center;
+}
+
+.black {
+  color: black;
+}

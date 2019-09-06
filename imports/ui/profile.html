@@ -1,0 +1,71 @@
+<template name="profile">
+	<div class="container">
+		{{#if currentUser}}
+		<br>
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-4 text-center">
+					<p style="display: inline-block; font-size: 20px; margin-top: 1rem">{{signupEmail}} : 
+			        {{#if hasRole}}
+						Verified
+					{{else}}
+						Unverified
+			        {{/if}}
+					</p>
+				</div>
+				<div class="col-sm-4 text-center">
+					<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Truck # {{currentUser.truckNumber}}</p>
+				</div>
+				{{#if currentUser.isOnline}}
+					<div class="col-sm-4 text-center">
+						<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Online <i class="fas fa-circle" style="font-size: 20px; color:green"></i></p>
+					</div>
+				{{else}}
+					<div class="col-sm-4 text-center">
+						<p style="display: inline-block; font-size: 20px; margin-top: 1rem">Offline <i class="fas fa-circle" style="font-size: 20px; color:red"></i></p>
+					</div>
+				{{/if}}
+				<br>
+
+				<div class=" col-sm-12 text-center">
+					<p style="text-align: center; font-size: 20px; margin-top: 1rem">Employee schedule : {{userHours}}</p>
+
+				</div>
+			</div>
+
+		
+		</div>
+
+		{{#if currentUser.isOnline}}
+		<br>
+		<p style="font-size: 20px; margin-top: 1rem; margin: 0 auto;
+    text-align: center;
+    display: inherit;">
+			<div class="text-center" style="margin-top: -25px;">
+				<button type="button" class="btn btn-danger changeOnlineStatus" style="">Go offline <i class="fas fa-times"></i>
+			    </button>
+			</div>
+		</p>
+		{{else}}
+		<br>
+		<p style="font-size: 20px; margin-top: 1rem; margin: 0 auto;text-align: center;display: inherit;">
+			<div class="text-center" style="margin-top: -25px;">
+				<button type="button" class="btn btn-success changeOnlineStatus" style="">Go online <i class="fas fa-times"></i>
+			    </button>
+			</div>
+		</p>
+		{{/if}}
+		<hr>
+		{{/if}}
+		{{#if currentUser.truckNumber }}
+		{{else}}
+        	<form class="uploadTruckNumber">
+	          <div class="form-group">
+	            <label for="pickup" class="col-form-label">Truck number:</label>
+	            <input type="number" class="form-control" name="truckNumber" id="truckNumber" maxlength="4">
+	          </div>
+			  <input type="submit" class="btn btn-success" id="uploadData" style="float: center; margin: 0 auto; text-align: center; display: inherit;">
+	        </form>
+        {{/if}}
+	</div>
+</template>

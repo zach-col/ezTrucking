@@ -1,0 +1,227 @@
+<template name="employee">
+	<div class="container">
+		<img src="data:image/jpeg;base64, /hawaii">
+        {{#if user}}
+			<a href="/employees" style="display: inline-block; font-size: 20px; margin-top: 1rem"><i class="fas fa-arrow-left" style="font-size: 20px"></i> Go back to employees</a>
+			<br>
+			<br>
+            {{#each user}}
+			<div class="well" style="border: 1px solid black; padding: 10px;">
+				<br>
+
+				<div class="row">
+					<div class="col-md-4 col-sm-12 text-center">
+						<p style="font-size: 20px; margin-top: -25px; margin: 0 auto;
+				    text-align: center;">{{email}} : 
+					        {{#if hasRole _id 'verified'}}
+								Verified
+							{{else}}
+								Unverified
+					        {{/if}}
+				    	</p>
+				    	<br>
+
+						<p style="font-size: 20px; margin-top: -25px; margin: 0 auto;
+				    text-align: center;
+				    display: inherit;">
+					        {{#if hasRole _id 'verified'}}
+								<div class="text-center" style="">
+									<button type="button" class="btn btn-danger verifyUser" style="">Unverify user <i class="fas fa-times"></i>
+								    </button>
+								</div>
+							{{else}}
+								<div class="text-center" style="">
+									<button type="button" class="btn btn-success verifyUser" style="">Verify user <i class="fas fa-check"></i>
+								    </button>
+								</div>
+					        {{/if}}
+					        <br>
+						</p>
+
+					</div>
+					<div class="col-md-4 col-sm-12 text-center">
+						<p style="display: block; font-size: 20px; margin-top: 1rem">
+							{{#if  isOnline }}
+							Online
+							<i class="fas fa-circle" style="font-size: 20px; color:green"></i>
+							{{else}}
+							Offline
+							<i class="fas fa-circle" style="font-size: 20px; color:red"></i>
+							{{/if}}
+							</p>
+							{{#if isOnline}}
+							<br>
+							<p style="font-size: 20px; margin-top: 1rem; margin: 0 auto;
+					    text-align: center;
+					    display: inherit;">
+								<div class="text-center" style="margin-top: -25px;">
+									<button type="button" class="btn btn-danger changeEmployeeOnlineStatus" style="">Go Offline <i class="fas fa-times"></i>
+								    </button>
+								</div>
+							</p>
+							{{else}}
+							<br>
+							<p style="font-size: 20px; margin-top: 1rem; margin: 0 auto;text-align: center;display: inherit;">
+								<div class="text-center" style="margin-top: -25px;">
+									<button type="button" class="btn btn-success changeEmployeeOnlineStatus" style="">Go Online <i class="fas fa-times"></i>
+								    </button>
+								</div>
+							</p>
+							{{/if}}
+					</div>
+					<div class="col-md-4 col-sm-12 text-center">
+						<p style="display: block; font-size: 20px; margin-top: 1rem">Truck # {{truckNumber}}</p>
+						<p style="display: block; font-size: 20px; margin-top: 1rem">
+							<div class="text-center" style="">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#truckIdModal" data-truck="{{truckNumber}}">Edit truck id <i class="fas fa-edit"></i>
+							    </button>
+							</div>
+						</p>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-12 text-center">
+						<p style="display: block; font-size: 20px; margin-top: 1rem">Employee hours</p>
+						<p style="display: block; font-size: 20px; margin-top: 1rem">
+							{{#if  userHours }}
+							{{userHours}}
+							data
+							{{else}}
+							None
+							{{/if}}	
+
+						</p>
+
+						<p style="display: block; font-size: 20px; margin-top: 1rem">
+							<div class="text-center" style="">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hoursModal">Employee hours <i class="fas fa-edit"></i>
+							    </button>
+							</div>
+						</p>
+					</div>
+				</div>
+				<br>
+			</div>
+			{{/each}}
+			<br>
+<!-- 				<div class="well" style="border: 1px solid black; padding: 10px;">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="centerDelivery">Pickup location : </p>
+							<p class="centerDeliverySub"> {{pickup}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="centerDelivery">Dropoff location :</p>
+							<p class="centerDeliverySub">{{dropoff}}</p>
+
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="centerDelivery">Accepted at :</p>
+							<p class="centerDeliverySub">{{acceptedAt}}</p>
+						</div>
+						<div class="col-sm-6">
+
+							<p class="centerDelivery">Pickup time :</p>
+							<p class="centerDeliverySub">{{pickedUpAt}}</p>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="centerDelivery">Droppoff time :</p>
+							<p class="centerDeliverySub">{{droppedOffAt}}</p>
+
+						</div>
+						<div class="col-sm-6">
+							<p class="centerDelivery">Form completed time :</p>
+							<p class="centerDeliverySub">{{completedAt}}</p>
+						</div>
+					</div>
+				</div> -->
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Pickup</th>
+				      <th scope="col">Dropoff</th>
+				      <th scope="col">Accepted</th>
+				      <th scope="col">Pickedup</th>
+				      <th scope="col">Dropped off</th>
+				      <th scope="col">Completed:</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{{#each deliveriesCompleted}}
+					    <tr>
+					      <td>{{pickup}}</td>
+					      <td>{{dropoff}}</td>
+					      <td>{{acceptedAt}}</td>
+					      <td>{{pickedUpAt}}</td>
+					      <td>{{droppedOffAt}}</td>
+					      <td>{{completedAt}}</td>
+
+					    </tr>
+				    {{/each}}
+				  </tbody>
+				</table>
+				<br>
+        {{else}}
+            <h4>error this employee does not exist</h4>
+        {{/if}}	
+
+		<!-- edit truck modal -->
+		<div class="modal fade" id="truckIdModal" tabindex="-1" role="dialog" aria-labelledby="truckIdModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="truckIdModalLabel">Update truck id</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				<form class="updateTruckNumber">
+				<div class="form-group">
+					<label for="pickup" class="col-form-label">Truck number:</label>
+					<input type="number" class="form-control" name="truckNumber" id="truckNumber">
+				</div>
+				<input type="submit" class="btn btn-success" id="uploadData" style="float: center; margin: 0 auto; text-align: center; display: inherit;">
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- edit hours modal -->
+		<div class="modal fade" id="hoursModal" tabindex="-1" role="dialog" aria-labelledby="hoursModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="truckIdModalLabel">Employee hours</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				<form class="hours">
+				<div class="form-group">
+					<label for="pickup" class="col-form-label">Employee hours:</label>
+					<input type="string" class="form-control" name="hours" id="hours">
+				</div>
+				<input type="submit" class="btn btn-success" id="uploadData" style="float: center; margin: 0 auto; text-align: center; display: inherit;">
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</template>
