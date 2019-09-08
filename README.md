@@ -1,5 +1,12 @@
 # EZTrucking
-EZTrucking - Internal content delivery system for a trucking company
+EZTrucking - Internal content delivery system for a trucking company  
+
+Responsive web application created with Meteor & mLab to dispatch deliveries to truckers hosted on Meteor hosting.  
+
+Includes a admin panel to see users online, deliveries progress and user verification.  
+
+Admins can create deliveries, verify users, update online status and deploy Truckers hours.  
+
 ## Instructions  
 To get started follow the steps bellow  
 1 Download repo  
